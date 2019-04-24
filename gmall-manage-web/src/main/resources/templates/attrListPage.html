@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--属性信息管理页-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table id="dg" title="属性信息" class="easyui-datagrid" style="width: 100%;height: 100%;"
+       data-options="fitColumns:true,singleSelect:true,toolbar:'#tb'">
+    <thead>
+    <tr>
+        <th data-options="field:'id'" width="100">属性id</th>
+        <th data-options="field:'attrName'" width="100">属性名称</th>
+    </tr>
+    </thead>
+</table>
+<div id="tb">
+    <a href="javascript:addAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+    <a href="javascript:editAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-edit ',plain:true">编辑</a>
+    <a href="javascript:deleteAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-remove ',plain:true">删除</a>
+    <div>
+        一级分类：<input id="ctg1ForAttrList" class="easyui-combobox" data-options="
+                valueField:'id',
+                textField:'name',
+                url:'getCatalog1',
+                <!--根据选中的一级分类加载二级分类-->
+                onSelect: function(rec){
+                            var url = 'getCatalog2?catalog1Id='+rec.id;
+                            $('#ctg2ForAttrList').combobox('reload', url);
+                            }">
+        二级分类：<input id="ctg2ForAttrList" class="easyui-combobox" data-options="
+                valueField: 'id',
+                textField: 'name',
+                <!--根据选中的二级分类加载三级分类-->
+                onSelect: function(rec){
+                            var url = 'getCatalog3?catalog2Id='+rec.id;
+                            $('#ctg3ForAttrList').combobox('reload', url);
+                            }">
+        三级分类：<input id="ctg3ForAttrList" class="easyui-combobox" data-options="
+                valueField: 'id',
+                textField: 'name',
+                ">
+        <a href="javascript:reloadAttrList();" class="easyui-linkbutton"
+           data-options="iconCls:'icon-search'" style="width: 120px">刷新属性列表</a>
+    </div>
+</div>
+<div th:include="attrInfoPage"></div>
+<!--<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true">
+    Dialog Content.
+</div>-->
+<script language="JavaScript">
+    //刷新属性列表按钮
+    function reloadAttrList() {
+        //获取三级分类的value值
+        var ctg3Id = $("#ctg3ForAttrList").combobox("getValue");
+        //显示属性列表
+        $("#dg").datagrid({
+            url: "getAttrList?catalog3Id=" + ctg3Id
+        });
+    }
+    //属性信息中的添加按钮
+    function addAttr() {
+        //获取三级分类的value值
+        var ctg3Id = $("#ctg3ForAttrList").combobox("getValue");
+        if (ctg3Id) {
+            //打开对话框
+            $("#dlg").dialog("open");
+            //创建属性值列表datagrid
+            initAttrValueDatagrid();
+        } else {
+            alert("请先选择分类");
+        }
+
+    }
+    //属性信息中的编辑按钮
+    function editAttr() {
+        //获取三级分类的value值
+        var ctg3Id = $("#ctg3ForAttrList").combobox("getValue");
+        if (ctg3Id) {
+            //打开对话框
+            $("#dlg").dialog("open");
+            var attrInfo = $("#dg").datagrid("getSelected");
+            //创建属性值列表datagrid
+            initAttrValueDatagrid();
+            if (attrInfo) {
+                //把选中属性的名字加载到对话框中
+                $("#attrName").textbox("setText", attrInfo.attrName);
+                //把选中属性的属性值列表加载到对话框中
+                $("#dg_av").datagrid({
+                    url: "getAttrValue?attrId=" + attrInfo.id
+                });
+            }
+        } else {
+            alert("请先选择分类");
+        }
+    }
+
+    //属性信息中的删除按钮
+    function deleteAttr() {
+        //获得行对象
+        var dg = $("#dg").datagrid("getSelected");
+        //获得行号
+        var rowNum = $("#dg").datagrid("getRowIndex", dg);
+        //根据行号删除
+        $("#dg").datagrid("deleteRow", rowNum);
+        //在数据库中删除
+        $("#dg").datagrid({
+            url: "deleteAttr?attrId=" + dg.id
+        });
+    }
+</script>
+</div></body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

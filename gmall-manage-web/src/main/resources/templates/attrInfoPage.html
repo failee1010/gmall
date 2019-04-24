@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--由属性信息管理页中通过添加和编辑按钮所调用-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="dlg" class="easyui-dialog" title="编辑属性" style="width:600px;height:500px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:'#bb'">
+    <label for="attrName">属性名称:</label>
+    <input id="attrName" name="attrName" class="easyui-textbox" data-options="" style="width: 100px;">
+    <br><br>
+    <table id="dg_av" class="easyui-datagrid" title="属性值列表"></table>
+</div>
+<div id="bb">
+    <a href="#" class="easyui-linkbutton" onclick="saveAttrValue()">保存</a>
+    <a href="#" class="easyui-linkbutton">关闭</a>
+</div>
+
+<script language="JavaScript">
+    //创建属性值列表datagrid
+    function initAttrValueDatagrid() {
+        // alert(attrInfo.id);
+        d = $("#dg_av").datagrid({
+            columns: [[
+                {field: "id", title: "编号", width: 200},
+                {
+                    field: "valueName", title: "属性值名称", width: 380,
+                    editor: {
+                        type: 'validatebox', option: {required: true}
+                    }
+                }
+            ]],
+            toolbar: [{
+                iconCls: 'icon-add',
+                text: "添加",
+                handler: function () {
+                    $("#dg_av").datagrid("appendRow", {
+                        id: "",
+                        valueName: ""
+                    });
+                }
+            }, '-', {
+                iconCls: 'icon-remove',
+                text: "删除",
+                handler: function () {
+                    //获得行对象
+                    var dg_av = $("#dg_av").datagrid("getSelected");
+                    //获得行号
+                    var rowNum = $("#dg_av").datagrid("getRowIndex", dg_av);
+                    //根据行号删除
+                    $("#dg_av").datagrid("deleteRow", rowNum);
+                }
+            }],
+            onDblClickRow:function (rowIndex, rowData) {
+                //双击开启编辑
+                d.datagrid("beginEdit", rowIndex);
+                //设定当失去焦点时，退出编辑状态
+                var valueName = rowData.valueName;
+                $("input.datagrid-editable-input").val(valueName).bind("blur", function (evt) {
+                    d.datagrid("endEdit", rowIndex);
+                });
+            }
+        });
+    }
+
+    //属性值列表的保存按钮
+    function saveAttrValue() {
+        //获得三级分类的value值
+        var catalog3Id = $("#ctg3ForAttrList").combobox("getValue");
+        //获得属性名称
+        var attrName = $("#attrName").val();
+        //组装attrInfo
+        var attrInfo = {};
+        attrInfo["catalog3Id"] = catalog3Id;
+        attrInfo["attrName"] = attrName;
+        //将属性值列表的所有值保存到attrInfo中
+        var rows = $("#dg_av").datagrid("getRows");
+        $(rows).each(function (i, json) {
+            attrInfo["attrValueList[" + i + "].valueName"] = json.valueName;
+        });
+
+        //将组装完毕的attrInfo插入到baseAttrInfo表和baseAttrValue表中
+        $.post("saveAttrValue",attrInfo,function (data) {
+            //关闭窗口
+            $("#dlg").dialog("close");
+            //刷新属性列表
+            $("#dg").datagrid("reload", "getAttrList?catalog3Id=" + catalog3Id);
+        })
+    }
+</script>
+
+</body>
+</html>

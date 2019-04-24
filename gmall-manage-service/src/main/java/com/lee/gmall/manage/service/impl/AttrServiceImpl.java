@@ -1,0 +1,53 @@
+package com.lee.gmall.manage.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.lee.gmall.bean.BaseAttrInfo;
+import com.lee.gmall.bean.BaseAttrValue;
+import com.lee.gmall.manage.mapper.BaseAttrInfoMapper;
+import com.lee.gmall.manage.mapper.BaseAttrValueMapper;
+import com.lee.gmall.service.AttrService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+@Service
+public class AttrServiceImpl implements AttrService {
+
+    @Autowired
+    BaseAttrInfoMapper baseAttrInfoMapper;
+    @Autowired
+    BaseAttrValueMapper baseAttrValueMapper;
+
+    @Override
+    public List<BaseAttrInfo> getAttrList(String catalog3Id) {
+        BaseAttrInfo baseAttrInfo = new BaseAttrInfo();
+        baseAttrInfo.setCatalog3Id(catalog3Id);
+        List<BaseAttrInfo> baseAttrInfos = baseAttrInfoMapper.select(baseAttrInfo);
+        return baseAttrInfos;
+    }
+
+    @Override
+    public void saveAttr(BaseAttrInfo baseAttrInfo) {
+        baseAttrInfoMapper.insertSelective(baseAttrInfo);
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        for (BaseAttrValue baseAttrValue:
+             attrValueList) {
+            baseAttrValue.setAttrId(baseAttrInfo.getId());
+            baseAttrValueMapper.insert(baseAttrValue);
+        }
+    }
+
+    @Override
+    public List<BaseAttrValue> getAttrValue(String attrId) {
+        BaseAttrValue baseAttrValue = new BaseAttrValue();
+        baseAttrValue.setAttrId(attrId);
+        return baseAttrValueMapper.select(baseAttrValue);
+    }
+
+    @Override
+    public void deleteAttr(String attrId) {
+        BaseAttrInfo baseAttrInfo = new BaseAttrInfo();
+        baseAttrInfo.setId(attrId);
+        baseAttrInfoMapper.delete(baseAttrInfo);
+    }
+}
