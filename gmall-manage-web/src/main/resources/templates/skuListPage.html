@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="skulist_dlg" class="easyui-dialog" title="SKU列表" style="width: 700px;height: 520px;" closed="true"
+    data-options="resizable:true,modal:false">
+    <!--列表-->
+    <table id="skulist_dg" class="easyui-datagrid"
+           data-options="singleSelect:true,method:'get',toolbar:'#skulist_tb'">
+        <thead>
+        <tr>
+            <th data-options="field:'id'" width="20%" align="center">库存单元ID</th>
+            <th data-options="field:'skuName'" width="50%" align="center">库存单元名称</th>
+            <th data-options="field:'price'" width="30%" align="center">价格</th>
+            <th data-options="field:'weight',hidden:'true'">重量</th>
+            <th data-options="field:'catalog3Id',hidden:'true'">三级分类</th>
+            <th data-options="field:'skuImageList',hidden:'true'">图片列表</th>
+            <th data-options="field:'skuAttrValueList',hidden:'true'">平台属性</th>
+            <th data-options="field:'skuSaleAttrValueList',hidden:'true'">销售属性</th>
+            <th data-options="field:'skuDesc',hidden:'true'">商品描述</th>
+            <th data-options="field:'skuDefaultImg',hidden:'true'">默认图片</th>
+        </tr>
+        </thead>
+    </table>
+    <!--列表工具栏-->
+    <div id="skulist_tb" style="padding: 5px;height: auto;">
+        <div style="margin-bottom: 5px;">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editSkuInfo()">编辑</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteSkuInfo()">删除</a>
+        </div>
+        <input id="spuIdForSkuList" name="spuIdForSkuId" type="hidden">
+        <input id="catalog3IdForSkuList" name="catalog3IdForSkuId" type="hidden">
+        <div>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="reloadSkuList()">刷新列表</a>
+        </div>
+    </div>
+
+</div>
+
+<script language="JavaScript">
+    //加载SKU列表
+    function initSkuListDatagrid(spuId) {
+        $("#skulist_dg").datagrid({
+            url: "getSkuListBySpuId?spuId" + spuId
+        });
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
