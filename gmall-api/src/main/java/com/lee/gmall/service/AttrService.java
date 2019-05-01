@@ -14,4 +14,6 @@ public interface AttrService {
     List<BaseAttrValue> getAttrValue(String attrName);
 
     void deleteAttr(String attrId);
+
+    List<BaseAttrInfo> getAttrListByCtg3Id(String ctg3Id);
 }

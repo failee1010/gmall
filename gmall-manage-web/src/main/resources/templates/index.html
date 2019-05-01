@@ -9,12 +9,18 @@
     <link rel="stylesheet" type="text/css" href="/esayui/themes/icon.css">
     <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
     <script type="text/javascript" src="/esayui/jquery.min.js"></script>
-     <script type="text/javascript" src="/esayui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/esayui/jquery.easyui.min.js"></script>
 
+    <script type="text/javascript" src="/webuploader/webuploader.js"></script>
+    <script type="text/javascript" src="/esayui/datagrid-detailview.js"></script>
+
+    <style>
+        li{list-style: none;}
+    </style>
 </head>
 <body class="easyui-layout">
 
-<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">
+<div data-options="region:'north',border:false" style="height:60px;background:#A9FACD;padding:10px">
     <span style="font-size: large">后台管理系统</span>
 </div>
 <div data-options="region:'west',split:true,title:'West'" style="width:200px;padding:10px;">
@@ -29,14 +35,15 @@
         <div title="商品信息管理" data-options="iconCls:'icon-ok'" style="padding:10px;">
             <ul>
                 <li>
-                    商品SPU管理
+                    <a href="javascript:addSupTabs();">商品SPU管理</a>
                 </li>
             </ul>
         </div>
         <div title="广告管理" data-options="iconCls:'icon-ok'" style="padding:10px;">
             <ul>
                 <li>
-                    其他管理项
+                    <a href="javascript:addOtherTabs();">其他管理项</a>
+
                 </li>
             </ul>
         </div>
@@ -51,23 +58,44 @@
 
 <script language="JavaScript">
 
+
+    //在Center中的tabs中返回attrListPage页面
     function addAttrTabs() {
-        //在Center中的tabs中返回attrListPage页面
-        var tab = $("#tt").tabs("exists", "平台属性管理");
+        var tab = $("#tt").tabs("exists", "属性信息管理");
         //如果tab不存在则加载
         if (!tab) {
             $("#tt").tabs("add", {
-                title: "平台属性管理",
+                title: "属性信息管理",
                 href: "attrListPage",
                 closable: true
             });
         }
         //否则定位到已加载的tab上
         else {
-            $("#tt").tabs("select", "平台属性管理");
+            $("#tt").tabs("select", "属性信息管理");
         }
 
     }
+
+
+    //在Center中的tabs中返回spuListPage页面
+    function addSupTabs() {
+        var tab = $("#tt").tabs("exists", "商品SPU管理");
+        //如果tab不存在则加载
+        if (!tab) {
+            $("#tt").tabs("add", {
+                title: "商品SPU管理",
+                href: "spuListPage",
+                closable: true
+            });
+        }
+        //否则定位到已加载的tab上
+        else {
+            $("#tt").tabs("select", "商品SPU管理");
+        }
+
+    }
+
 </script>
 
 </body>

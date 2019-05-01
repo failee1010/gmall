@@ -11,15 +11,17 @@
        data-options="fitColumns:true,singleSelect:true,toolbar:'#tb'">
     <thead>
     <tr>
-        <th data-options="field:'id'" width="100">属性id</th>
-        <th data-options="field:'attrName'" width="100">属性名称</th>
+        <th data-options="field:'id'" width="100" align="center">属性ID</th>
+        <th data-options="field:'attrName'" width="100" align="center">属性名称</th>
     </tr>
     </thead>
 </table>
-<div id="tb">
-    <a href="javascript:addAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
-    <a href="javascript:editAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-edit ',plain:true">编辑</a>
-    <a href="javascript:deleteAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-remove ',plain:true">删除</a>
+<div id="tb" style="padding: 5px;height: auto;">
+    <div style="margin-bottom: 5px">
+        <a href="javascript:addAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+        <a href="javascript:editAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-edit ',plain:true">编辑</a>
+        <a href="javascript:deleteAttr();" class="easyui-linkbutton" data-options="iconCls:'icon-remove ',plain:true">删除</a>
+    </div>
     <div>
         一级分类：<input id="ctg1ForAttrList" class="easyui-combobox" data-options="
                 valueField:'id',
@@ -43,14 +45,11 @@
                 textField: 'name',
                 ">
         <a href="javascript:reloadAttrList();" class="easyui-linkbutton"
-           data-options="iconCls:'icon-search'" style="width: 120px">刷新属性列表</a>
+           data-options="iconCls:'icon-search'" style="width: 120px">刷新列表</a>
     </div>
 </div>
 <div th:include="attrInfoPage"></div>
-<!--<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
-     data-options="iconCls:'icon-save',resizable:true,modal:true">
-    Dialog Content.
-</div>-->
+
 <script language="JavaScript">
     //刷新属性列表按钮
     function reloadAttrList() {
@@ -68,6 +67,11 @@
         if (ctg3Id) {
             //打开对话框
             $("#dlg").dialog("open");
+            //清空属性列表
+            $('#dg_av').datagrid('loadData', {
+                total: 0,
+                rows: []
+            });
             //创建属性值列表datagrid
             initAttrValueDatagrid();
         } else {
@@ -111,6 +115,9 @@
             url: "deleteAttr?attrId=" + dg.id
         });
     }
+
+
+
 </script>
 </div></body>
 </html>

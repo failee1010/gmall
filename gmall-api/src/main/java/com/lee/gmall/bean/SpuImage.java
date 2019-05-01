@@ -1,28 +1,29 @@
 package com.lee.gmall.bean;
 
+import java.io.Serializable;
 
-public class SpuImage {
+public class SpuImage implements Serializable {
 
-  private long id;
-  private long spuId;
+  private String id;
+  private String spuId;
   private String imgName;
   private String imgUrl;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getSpuId() {
+  public String getSpuId() {
     return spuId;
   }
 
-  public void setSpuId(long spuId) {
+  public void setSpuId(String spuId) {
     this.spuId = spuId;
   }
 

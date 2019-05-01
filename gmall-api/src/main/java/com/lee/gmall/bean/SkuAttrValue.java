@@ -1,46 +1,47 @@
 package com.lee.gmall.bean;
 
+import java.io.Serializable;
 
-public class SkuAttrValue {
+public class SkuAttrValue implements Serializable {
 
-  private long id;
-  private long attrId;
-  private long valueId;
-  private long skuId;
+  private String id;
+  private String attrId;
+  private String valueId;
+  private String skuId;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getAttrId() {
+  public String getAttrId() {
     return attrId;
   }
 
-  public void setAttrId(long attrId) {
+  public void setAttrId(String attrId) {
     this.attrId = attrId;
   }
 
 
-  public long getValueId() {
+  public String getValueId() {
     return valueId;
   }
 
-  public void setValueId(long valueId) {
+  public void setValueId(String valueId) {
     this.valueId = valueId;
   }
 
 
-  public long getSkuId() {
+  public String getSkuId() {
     return skuId;
   }
 
-  public void setSkuId(long skuId) {
+  public void setSkuId(String skuId) {
     this.skuId = skuId;
   }
 

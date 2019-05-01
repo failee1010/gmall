@@ -1,42 +1,56 @@
 package com.lee.gmall.bean;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.io.Serializable;
+import java.util.List;
 
-public class SkuInfo {
+public class SkuInfo implements Serializable {
 
-  private long id;
-  private long spuId;
-  private double price;
+  @Id
+  @GeneratedValue(generator = "JDBC")//增加这个注解解决了通用Mapper的insert不返回主键的问题
+  private String id;
+  private String spuId;
+  private String price;
   private String skuName;
   private String skuDesc;
-  private double weight;
-  private long tmId;
-  private long catalog3Id;
+  private String weight;
+  private String tmId;
+  private String catalog3Id;
   private String skuDefaultImg;
 
+  @Transient
+  List<SkuImage> skuImageList;
+  @Transient
+  List<SkuAttrValue> skuAttrValueList;
+  @Transient
+  List<SkuSaleAttrValue> skuSaleAttrValueList;
 
-  public long getId() {
+
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getSpuId() {
+  public String getSpuId() {
     return spuId;
   }
 
-  public void setSpuId(long spuId) {
+  public void setSpuId(String spuId) {
     this.spuId = spuId;
   }
 
 
-  public double getPrice() {
+  public String getPrice() {
     return price;
   }
 
-  public void setPrice(double price) {
+  public void setPrice(String price) {
     this.price = price;
   }
 
@@ -59,29 +73,29 @@ public class SkuInfo {
   }
 
 
-  public double getWeight() {
+  public String getWeight() {
     return weight;
   }
 
-  public void setWeight(double weight) {
+  public void setWeight(String weight) {
     this.weight = weight;
   }
 
 
-  public long getTmId() {
+  public String getTmId() {
     return tmId;
   }
 
-  public void setTmId(long tmId) {
+  public void setTmId(String tmId) {
     this.tmId = tmId;
   }
 
 
-  public long getCatalog3Id() {
+  public String getCatalog3Id() {
     return catalog3Id;
   }
 
-  public void setCatalog3Id(long catalog3Id) {
+  public void setCatalog3Id(String catalog3Id) {
     this.catalog3Id = catalog3Id;
   }
 
@@ -91,7 +105,32 @@ public class SkuInfo {
   }
 
   public void setSkuDefaultImg(String skuDefaultImg) {
+
     this.skuDefaultImg = skuDefaultImg;
+  }
+
+  public List<SkuImage> getSkuImageList() {
+    return skuImageList;
+  }
+
+  public void setSkuImageList(List<SkuImage> skuImageList) {
+    this.skuImageList = skuImageList;
+  }
+
+  public List<SkuAttrValue> getSkuAttrValueList() {
+    return skuAttrValueList;
+  }
+
+  public void setSkuAttrValueList(List<SkuAttrValue> skuAttrValueList) {
+    this.skuAttrValueList = skuAttrValueList;
+  }
+
+  public List<SkuSaleAttrValue> getSkuSaleAttrValueList() {
+    return skuSaleAttrValueList;
+  }
+
+  public void setSkuSaleAttrValueList(List<SkuSaleAttrValue> skuSaleAttrValueList) {
+    this.skuSaleAttrValueList = skuSaleAttrValueList;
   }
 
 }

@@ -48,5 +48,11 @@ public class AttrController {
         return "success";
     }
 
+    @RequestMapping("getAttrListByCtg3Id")
+    @ResponseBody
+    public List<BaseAttrInfo> getAttrListByCtg3Id(String ctg3Id) {
+        return attrService.getAttrListByCtg3Id(ctg3Id);
+    }
+
 
 }

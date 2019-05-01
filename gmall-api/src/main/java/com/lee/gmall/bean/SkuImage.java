@@ -1,30 +1,31 @@
 package com.lee.gmall.bean;
 
+import java.io.Serializable;
 
-public class SkuImage {
+public class SkuImage implements Serializable {
 
-  private long id;
-  private long skuId;
+  private String id;
+  private String skuId;
   private String imgName;
   private String imgUrl;
-  private long spuImgId;
-  private String isDefault;
+  private String spuImgId;
+  private String isDefault = "0";
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getSkuId() {
+  public String getSkuId() {
     return skuId;
   }
 
-  public void setSkuId(long skuId) {
+  public void setSkuId(String skuId) {
     this.skuId = skuId;
   }
 
@@ -47,11 +48,11 @@ public class SkuImage {
   }
 
 
-  public long getSpuImgId() {
+  public String getSpuImgId() {
     return spuImgId;
   }
 
-  public void setSpuImgId(long spuImgId) {
+  public void setSpuImgId(String spuImgId) {
     this.spuImgId = spuImgId;
   }
 
