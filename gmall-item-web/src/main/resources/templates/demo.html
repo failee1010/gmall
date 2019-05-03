@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--取值-->
+<div th:text="${hello}">默认内容</div>
+
+<!--循环-->
+<div th:each="user:${userInfos}" th:text="${user.nickName}">用户信息</div>
+
+<!--判断-->
+<div th:if="${hello=='hello'}">表达式为真时显示</div>
+<div th:text="(${hello=='hello,thymeleaf'})?'yes':'no'"></div>
+
+<!--引入-->
+<div th:include="page::fragment"></div>
+
+<!--js函数调用-->
+<!--<a th:href="'javascript:func(\''+${hello}+'\')'">点击</a>-->
+<!--
+<script language="JavaScript">
+    function func(hello) {
+        alert(hello);
+    }
+</script>-->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

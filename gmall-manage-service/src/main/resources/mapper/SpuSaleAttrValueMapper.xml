@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.gmall.manage.mapper.SpuSaleAttrValueMapper">
+
+    <select id="selectSpuSaleAttrListCheckBySku" parameterType="Map" resultMap="selectSpuSaleAttrListCheckBySkuMap">
+          select ssa.id as ssaId,
+                 ssav.id as ssavId,
+                 ssa.sale_attr_id,
+                 ssa.sale_attr_name,
+                 ssav.id,
+                 ssav.sale_attr_value_name,
+                 ssav2.sku_id,
+                 if(ssav2.sku_id is not null, 1, 0) as isChecked
+          from spu_sale_attr ssa
+                 inner join spu_sale_attr_value ssav on ssa.sale_attr_id = ssav.sale_attr_id
+                                                          and ssa.spu_id = ssav.spu_id
+                                                          and ssa.spu_id = #{spuId}
+                 left join sku_sale_attr_value ssav2 on ssav2.sale_attr_id = ssa.sale_attr_id
+                                                          and ssav2.sale_attr_value_id = ssav.id
+                                                          and ssav2.sku_id = #{skuId}
+          order by ssavId
+
+     </select>
+    <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.lee.gmall.bean.SpuSaleAttr" autoMapping="true">
+        <result property="id" column="ssaId"/>
+        <collection property="spuSaleAttrValueList" ofType="com.lee.gmall.bean.SpuSaleAttrValue" autoMapping="true">
+            <result property="id" column="ssavId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectSkuSaleAttrValueListBySpu" parameterType="String" resultMap="selectSkuSaleAttrValueListBySpuMap">
+        select sku_sale_attr_value.id as ssavId, sku_info.id,sku_sale_attr_value.sale_attr_value_id
+        from sku_info,sku_sale_attr_value
+        where sku_info.id = sku_sale_attr_value.sku_id
+        and sku_info.spu_id = #{spuId};
+
+    </select>
+    <resultMap id="selectSkuSaleAttrValueListBySpuMap" type="com.lee.gmall.bean.SkuInfo" autoMapping="true">
+        <result property="id" column="id"/>
+        <collection property="skuSaleAttrValueList" ofType="com.lee.gmall.bean.SkuSaleAttrValue" autoMapping="true">
+            <result property="id" column="ssavId"/>
+        </collection>
+    </resultMap>
+
+</mapper>
