@@ -1,11 +1,9 @@
 package com.lee.gmall.service;
 
-import com.lee.gmall.bean.BaseSaleAttr;
-import com.lee.gmall.bean.SpuImage;
-import com.lee.gmall.bean.SpuInfo;
-import com.lee.gmall.bean.SpuSaleAttr;
+import com.lee.gmall.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SpuService {
     List<SpuInfo> spuList(String catalog3Id);
@@ -21,4 +19,8 @@ public interface SpuService {
     void deleteSpu(String spuId);
 
     List<SpuSaleAttr> getSpuSaleAttrListBySpuId(String spuId);
+
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Map<String, String> idMap);
+
+    List<SkuInfo> getSkuSaleAttrValueListBySpu(String spuId);
 }

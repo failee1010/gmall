@@ -86,10 +86,10 @@
                             value = 0;
                         }
                         var htmlstr =
-                            "<div class='easyui-progressbar progressbar' style='width:100px;height:20px;line-height: 20px;'>" +
-                            "<div class='easyui-text' style='width:100px;height:20px;line-height: 20px;'>" + value + "%</div>" +
-                            "<div class='easyui-value' style='width:" + value + "%;height:20px;line-height: 20px;'>" +
-                            "<div class='easyui-text' style='width:100px;height:20px;line-height: 20px;'></div>" + value + "%</div>" +
+                            "<div class='easyui-progressbar progressbar' style='width:100px;height:20px;' value='" + value + "' text='" + value + "'%>" +
+                            "<div class='progressbar-text'  style='width: 100px; height: 20px; line-height: 20px;'>" + value + "%</div>" +
+                            "<div class='progressbar-value' style='width:" + value + "%; height: 20px; line-height: 20px;'>" +
+                            "<div class='progressbar-text' style='width: 100px; height: 20px; line-height: 20px;'>" + value + "%</div>" +
                             "</div>" +
                             "</div>";
                         return htmlstr;
@@ -122,9 +122,9 @@
         $('#spuSaleAttrDg').datagrid({
             columns: [[
                 {field: "id", title: "", width: 10, align: 'center', hidden: true},
-                {field: "saleAttrId", title: "销售属性ID", width: 200, align: 'center'},
-                {field: "saleAttrName", title: "销售属性简称", width: 200, align: 'center'},
-                {field: "spuSaleAttrValueJson", title: "页面暂存", width: 200, align: 'center'}
+                {field: "saleAttrId", title: "销售属性ID", width: 340, align: 'center'},
+                {field: "saleAttrName", title: "销售属性简称", width: 340, align: 'center'},
+                {field: "spuSaleAttrValueJson", title: "页面暂存", width: 200, align: 'center',hidden:true}
             ]]
         });
     }
@@ -173,13 +173,14 @@
         // alert(0)
         $.post('saveSpu', spuInfo, function (data) {
             // alert(1)
-            //关闭对话框
-            $('#spu_dlg').dialog('close');
-            //刷新属性列表
-            var catalog3Id = $('#ctg3ForSpuList').combobox('getValue');
-            $('#spulist_dg').datagrid({
-                url: 'spuList?catalog3Id=' + catalog3Id
-            });
+
+        });
+        //关闭对话框
+        $('#spu_dlg').dialog('close');
+        //刷新属性列表
+        var catalog3Id = $('#ctg3ForSpuList').combobox('getValue');
+        $('#spulist_dg').datagrid({
+            url: 'spuList?catalog3Id=' + catalog3Id
         });
     }
 
@@ -236,6 +237,10 @@
         $('#spuImgUploadBtn').click(function () {
             spuImgUploader.upload();
         });
+
+        function closeSpu() {
+            $('#spu_dlg').dialog('close');
+        }
     }
 </script>
 

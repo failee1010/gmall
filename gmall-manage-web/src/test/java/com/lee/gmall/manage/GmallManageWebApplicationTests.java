@@ -1,5 +1,6 @@
 package com.lee.gmall.manage;
 
+import com.lee.gmall.manage.util.MyUploadUtil;
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.io.IOException;
 
 @RunWith(SpringRunner.class)
@@ -29,13 +31,14 @@ public class GmallManageWebApplicationTests {
         StorageClient storageClient = new StorageClient(connection, null);
         //通过storage上传文件
         String[] gifs = storageClient.upload_file("d:/1010/front-end.png", "png", null);
-        String url = "http://192.168.142.132:8888";
+        String url = "http://192.168.159.129:8888";
         for (String gif :
                 gifs) {
             url = url + "/" + gif;
         }
         System.out.println(url);
     }
+
 
 }
 

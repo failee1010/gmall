@@ -34,6 +34,8 @@
 </div>
 
 <script language="JavaScript">
+
+    //确定按钮
     function saveSpuSaleAttr() {
         //获得销售属性值列表的数据（json）
         var data = $('#spuSaleAttrValueDg').datagrid('getData');
@@ -49,14 +51,21 @@
         $('#spuSaleAttr_dlg').dialog('close');
     }
 
+    //关闭按钮
+    function closeSpuSaleAttr() {
+
+        $('#spuSaleAttr_dlg').dialog('close');
+
+    }
+
     //初始化编辑销售属性对话框
     function initSpuSaleAttrDlg() {
 
         d = $('#spuSaleAttrValueDg').datagrid({
             columns: [[
-                {field: "id", title: "销售属性值ID", width: 220, align: 'center'},
+                {field: "id", title: "销售属性值ID", width: 240, align: 'center'},
                 {
-                    field: "saleAttrValueName", title: "销售属性值名称", width: 220, align: 'center',
+                    field: "saleAttrValueName", title: "销售属性值名称", width: 240, align: 'center',
                     editor: {
                         type: 'validatebox', option: {required: true}
                     }
