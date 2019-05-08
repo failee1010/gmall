@@ -4,6 +4,7 @@ import com.lee.gmall.bean.BaseAttrInfo;
 import com.lee.gmall.bean.BaseAttrValue;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AttrService {
 
@@ -16,4 +17,6 @@ public interface AttrService {
     void deleteAttr(String attrId);
 
     List<BaseAttrInfo> getAttrListByCtg3Id(String ctg3Id);
+
+    List<BaseAttrInfo> getAttrListByValueIds(Set<String> valueIds);
 }

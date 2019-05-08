@@ -6,6 +6,7 @@ import com.lee.gmall.bean.SpuInfo;
 import com.lee.gmall.bean.SpuSaleAttr;
 import com.lee.gmall.service.SkuService;
 import com.lee.gmall.service.SpuService;
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +32,8 @@ public class SkuController {
         skuService.saveSku(skuInfo);
         return "success";
     }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,11 +13,11 @@
 
     <parent>
 
-    <groupId>com.lee.gmall</groupId>
+        <groupId>com.lee.gmall</groupId>
 
-    <artifactId>gmall-parent</artifactId>
+        <artifactId>gmall-parent</artifactId>
 
-    <version>1.0-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
 
     </parent>
 
@@ -24,54 +25,61 @@
     <dependencies>
 
 
-    <dependency>
+        <dependency>
 
-    <groupId>com.lee.gmall</groupId>
+            <groupId>com.lee.gmall</groupId>
 
-    <artifactId>gmall-common-util</artifactId>
+            <artifactId>gmall-common-util</artifactId>
 
-    <version>1.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
 
-    </dependency>
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+            </exclusion>
+            </exclusions>
 
-
-    <dependency>
-
-    <groupId>org.springframework.boot</groupId>
-
-    <artifactId>spring-boot-starter-jdbc</artifactId>
-
-    </dependency>
+        </dependency>
 
 
-    <dependency>
+        <dependency>
 
-    <groupId>org.mybatis.spring.boot</groupId>
+            <groupId>org.springframework.boot</groupId>
 
-    <artifactId>mybatis-spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
 
-    </dependency>
-
-
-    <dependency>
-
-    <groupId>mysql</groupId>
-
-    <artifactId>mysql-connector-java</artifactId>
-
-    <scope>runtime</scope>
-
-    </dependency>
+        </dependency>
 
 
-    <dependency>
+        <dependency>
 
-    <groupId>redis.clients</groupId>
+            <groupId>org.mybatis.spring.boot</groupId>
 
-    <artifactId>jedis</artifactId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
 
-    </dependency>
+        </dependency>
 
-</dependencies>
+
+        <dependency>
+
+            <groupId>mysql</groupId>
+
+            <artifactId>mysql-connector-java</artifactId>
+
+            <scope>runtime</scope>
+
+        </dependency>
+
+
+        <dependency>
+
+            <groupId>redis.clients</groupId>
+
+            <artifactId>jedis</artifactId>
+
+        </dependency>
+
+    </dependencies>
 
 </project>

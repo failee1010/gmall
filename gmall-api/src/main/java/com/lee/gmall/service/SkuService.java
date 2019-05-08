@@ -11,4 +11,6 @@ public interface SkuService {
     void saveSku(SkuInfo skuInfo);
 
     SkuInfo getSkuById(String skuId);
+
+    List<SkuInfo> getSkuListByCatalog3Id(String catalog3Id);
 }

@@ -6,9 +6,11 @@ import com.lee.gmall.bean.BaseAttrValue;
 import com.lee.gmall.manage.mapper.BaseAttrInfoMapper;
 import com.lee.gmall.manage.mapper.BaseAttrValueMapper;
 import com.lee.gmall.service.AttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AttrServiceImpl implements AttrService {
@@ -63,6 +65,13 @@ public class AttrServiceImpl implements AttrService {
             List<BaseAttrValue> baseAttrValues = baseAttrValueMapper.select(baseAttrValue);
             attrInfo.setAttrValueList(baseAttrValues);
         }
+        return baseAttrInfos;
+    }
+
+    @Override
+    public List<BaseAttrInfo> getAttrListByValueIds(Set<String> valueIds) {
+        String join = StringUtils.join(valueIds, ",");
+        List<BaseAttrInfo> baseAttrInfos = baseAttrValueMapper.selectAttrListByValueIds(join);
         return baseAttrInfos;
     }
 }
