@@ -27,7 +27,6 @@
     <dependencies>
 
 
-
         <dependency>
             <groupId>com.lee.gmall</groupId>
             <artifactId>gmall-api</artifactId>

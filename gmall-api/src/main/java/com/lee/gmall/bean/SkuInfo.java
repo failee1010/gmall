@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SkuInfo implements Serializable {
@@ -12,7 +13,7 @@ public class SkuInfo implements Serializable {
   @GeneratedValue(generator = "JDBC")//增加这个注解解决了通用Mapper的insert不返回主键的问题
   private String id;
   private String spuId;
-  private String price;
+  private BigDecimal price;
   private String skuName;
   private String skuDesc;
   private String weight;
@@ -46,11 +47,11 @@ public class SkuInfo implements Serializable {
   }
 
 
-  public String getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(String price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 

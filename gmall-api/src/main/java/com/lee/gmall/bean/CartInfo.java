@@ -1,52 +1,54 @@
 package com.lee.gmall.bean;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 
-public class CartInfo {
+public class CartInfo implements Serializable {
 
-  private long id;
-  private long userId;
-  private long skuId;
-  private double cartPrice;
+  private String id;
+  private String userId;
+  private String skuId;
+  private BigDecimal cartPrice;
   private long quantity;
   private String imgUrl;
   private String isChecked;
-  private double skuPrice;
+  private BigDecimal skuPrice;
   private double skuNum;
   private String skuName;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 
 
-  public long getSkuId() {
+  public String getSkuId() {
     return skuId;
   }
 
-  public void setSkuId(long skuId) {
+  public void setSkuId(String skuId) {
     this.skuId = skuId;
   }
 
 
-  public double getCartPrice() {
+  public BigDecimal getCartPrice() {
     return cartPrice;
   }
 
-  public void setCartPrice(double cartPrice) {
+  public void setCartPrice(BigDecimal cartPrice) {
     this.cartPrice = cartPrice;
   }
 
@@ -78,11 +80,11 @@ public class CartInfo {
   }
 
 
-  public double getSkuPrice() {
+  public BigDecimal getSkuPrice() {
     return skuPrice;
   }
 
-  public void setSkuPrice(double skuPrice) {
+  public void setSkuPrice(BigDecimal skuPrice) {
     this.skuPrice = skuPrice;
   }
 
