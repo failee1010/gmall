@@ -59,6 +59,14 @@
             <artifactId>batik-ext</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+
+
 
 
     </dependencies>

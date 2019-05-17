@@ -2,6 +2,7 @@ package com.lee.gmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.lee.gmall.annotation.LoginRequire;
 import com.lee.gmall.bean.CartInfo;
 import com.lee.gmall.bean.SkuInfo;
 import com.lee.gmall.service.CartService;
@@ -27,9 +28,20 @@ public class CartController {
     @Reference
     CartService cartService;
 
+
+    @LoginRequire(ifNeedSuccess = true)
+    @RequestMapping("toTrade")
+    public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+        String userId = (String) request.getAttribute("userId");
+
+        return "toTrade";
+    }
+
+
+    @LoginRequire(ifNeedSuccess = false)
     @RequestMapping("checkCart")
     public String checkCart(HttpServletRequest request, HttpServletResponse response, CartInfo cartInfo, ModelMap map) {
-        String userId = "";
+        String userId = (String) request.getAttribute("userId");
         List<CartInfo> cartInfos = new ArrayList<>();
 
         //修改购物车选中状态
@@ -69,9 +81,10 @@ public class CartController {
     }
 
 
+    @LoginRequire(ifNeedSuccess = false)
     @RequestMapping("cartList")
     public String cartList(HttpServletRequest request, ModelMap map) {
-        String userId = "1";
+        String userId = (String) request.getAttribute("userId");
         List<CartInfo> cartInfos = new ArrayList<>();
 
         if (StringUtils.isBlank(userId)) {
@@ -85,6 +98,7 @@ public class CartController {
             cartInfos = cartService.getCartCache(userId);
         }
 
+
         map.put("cartList", cartInfos);
         map.put("totalPrice", getTotalPrice(cartInfos));
         return "cartList";
@@ -93,12 +107,13 @@ public class CartController {
     private BigDecimal getTotalPrice(List<CartInfo> cartInfos) {
         BigDecimal totalPrice = new BigDecimal("0");
         for (CartInfo cartInfo : cartInfos) {
-            totalPrice.add(cartInfo.getCartPrice());
+            totalPrice = totalPrice.add(cartInfo.getCartPrice());
         }
 
         return totalPrice;
     }
 
+    @LoginRequire(ifNeedSuccess = false)
     @RequestMapping("addToCart")
     public String addToCart(HttpServletRequest request, HttpServletResponse response, CartInfo cartInfo) {
         //根据前台传入的skuId封装cartInfo
@@ -109,7 +124,7 @@ public class CartController {
         cartInfo.setImgUrl(sku.getSkuDefaultImg());
         cartInfo.setIsChecked("1");
 
-        String userId = "1";
+        String userId = (String) request.getAttribute("userId");
         List<CartInfo> cartInfos = new ArrayList<>();
 
         if (StringUtils.isBlank(userId)) {
@@ -158,7 +173,7 @@ public class CartController {
             //同步缓存
             cartService.syncCache(userId);
         }
-        return "redirect:/cartSuccess";
+        return "redirect:/cartSuccess?skuId=" + sku.getId();
     }
 
     private boolean isNewCart(List<CartInfo> cartInfos, CartInfo cartInfo) {
@@ -171,8 +186,11 @@ public class CartController {
         return isNewCart;
     }
 
+    @LoginRequire(ifNeedSuccess = false)
     @RequestMapping("cartSuccess")
-    public String cartSuccess() {
+    public String cartSuccess(ModelMap map, String skuId) {
+        SkuInfo sku = skuService.getSkuById(skuId);
+        map.put("skuInfo", sku);
         return "success";
     }
 

@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserService {
 
     List<UserInfo> userInfoList();
+
+    UserInfo login(UserInfo userInfo);
 }

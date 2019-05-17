@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lee.gmall.bean.CartInfo;
+import com.lee.gmall.bean.UserInfo;
 import com.lee.gmall.cart.mapper.CartInfoMapper;
 import com.lee.gmall.service.CartService;
 import com.lee.gmall.util.RedisUtil;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import tk.mybatis.mapper.entity.Example;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -55,7 +57,9 @@ public class CartServiceImpl implements CartService {
         for (CartInfo info : cartInfos) {
             cartInfoMap.put(info.getId(), JSON.toJSONString(info));
         }
-        jedis.hmset("carts:" + userId + ":info", cartInfoMap);
+        if (cartInfoMap != null && cartInfoMap.size() > 0) {
+            jedis.hmset("carts:" + userId + ":info", cartInfoMap);
+        }
         jedis.close();
 
     }
@@ -84,6 +88,29 @@ public class CartServiceImpl implements CartService {
         cartInfoMapper.updateByExampleSelective(cartInfo, example);
 
         syncCache(cartInfo.getUserId());
+
+    }
+
+    @Override
+    public void combineCart(List<CartInfo> cartInfos, String userId) {
+        if (cartInfos != null) {
+            for (CartInfo cartInfo : cartInfos) {
+                CartInfo info = ifCartExist(cartInfo);
+                if (info == null) {
+                    //插入
+                    cartInfo.setUserId(userId);
+                    cartInfoMapper.insertSelective(cartInfo);
+                } else {
+                    //更新
+                    info.setSkuNum(info.getSkuNum() + cartInfo.getSkuNum());
+                    info.setCartPrice(info.getCartPrice().multiply(new BigDecimal(info.getSkuNum())));
+                    cartInfoMapper.updateByPrimaryKeySelective(info);
+                }
+            }
+        }
+
+        //同步缓存
+        syncCache(userId);
 
     }
 
