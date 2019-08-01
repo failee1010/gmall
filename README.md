@@ -1,3 +1,3 @@
 springboot+dubbo
 
-! [home] (resource/home.png)
+! [home] (https://github.com/superlee1010/gmall/raw/master/resource/home.png)
