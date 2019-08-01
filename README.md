@@ -1,3 +1,3 @@
 springboot+dubbo
 
-![Image text](https://raw.github.com/yourName/repositpry/master/yourprojectName/img-folder/test.jpg)
+![home](https://raw.githubusercontent.com/superlee1010/gmall/master/resource/home.png)
