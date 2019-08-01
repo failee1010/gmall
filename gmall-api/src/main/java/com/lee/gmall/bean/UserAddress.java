@@ -1,20 +1,22 @@
 package com.lee.gmall.bean;
 
-public class UserAddress {
+import java.io.Serializable;
 
-  private long id;
+public class UserAddress implements Serializable {
+
+  private String id;
   private String userAddress;
-  private long userId;
+  private String userId;
   private String consignee;
   private String phoneNum;
   private String isDefault;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -28,11 +30,11 @@ public class UserAddress {
   }
 
 
-  public long getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 

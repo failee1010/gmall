@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/JD2.css" />
+
+		<title>结算页</title>
+	</head>
+
+	<body>
+		<!--顶部-->
+		<header>
+			<div class="header">
+				<ul class="header-left">
+					<li>
+						<img src="img/header_1.png"/>
+						<a href="">首页</a>
+					</li>
+					<li class="header-l-2">
+						<i class="fa fa-map-marker" style="color: #5C5452;"></i>
+						<a href="">北京</a>
+
+					</li>
+
+				</ul>
+				<ul class="header-right">
+					<li th:text="'你好，'+${nickName}"> </li>
+					<li>|</li>
+					<li class="spacer"></li>
+					<li><a href="">我的订单</a></li>
+					<li class="spacer"></li>
+
+				</ul>
+				<div style="clear: both;"></div>
+			</div>
+
+
+		</header>
+
+		<!--logo图片-->
+		<div class="top-1">
+			<img src="img/logo1.jpg" class="img1" /><span>结算页</span>
+			<!--右侧绿色-->
+			<img src="img/08.png" class="img2" />
+		</div>
+
+		<!--主体部分-->
+		<p class="p1">填写并核对订单信息</p>
+		<div class="section">
+			<!--收货人信息-->
+			<div class="top-2">
+				<span>收货人信息</span>
+				<span>新增收货地址</span>
+			</div>
+
+
+
+			<!--地址-->
+			<div class="top-3">
+				<ul >
+				 <li class=".address default selected" th:each="userAddress:${userAddressList}"  >
+					 <input   name="deliveryAddress" type="radio"  value=""  th:checked="${userAddress.isDefault}=='1'">
+					<span  th:text="${userAddress.consignee}" >收件人AAAA </span><span th:text="${userAddress.userAddress}"   >具体地址111 </span>
+				 </li>
+				</ul>
+			</div>
+		 
+			</form>
+			<div class="hh1"/></div>
+		<!--********************************************************************************************-->
+
+
+		<!--支付方式-->
+		<h4 class="h4">支付方式</h4>
+
+		<div class="top-6">
+			<p>  <span> 在线支付 </span> </p>
+		</div>
+		<div class="hh1"></div>
+		<!--送货清单-->
+		<h4 class="h4" style="margin-top: 5px;">送货清单</h4>
+		<div class="top_1">
+
+			<div class="to_right">
+				<h5>商家：自营</h5>
+				<!--图片-->
+				<div class="yun1" th:each="orderDetail:${orderDetailList}"  >
+					<img  th:src="${orderDetail.imgUrl}" class="yun"/>
+					<div class="mi">
+						<div><p style="width: 500px;" th:text="${orderDetail.skuName}" >商品名称111111111111 </p> <span style="float: right"> <span align="center" style="color: red" >   </span> <span   th:text="'X '+${orderDetail.skuNum}"> X 1   </span> <span  >有货</span>  <span  >无货</span>  </span> </div>
+
+					</div>
+				</div>
+
+
+		  </div>
+		</div>
+		<div class="bto">
+			<div class="hh2"></div>
+			<h4 class="float">添加订单备注
+				<input id="orderCommentPage" type="text" maxlength="145" size="75" style="height: 22px" placeholder="请将购买需求在备注中说明"/>
+			</h4>
+			<br/>
+			<div class="hh3"></div>
+
+		</div>
+		<div class="xia">
+
+
+
+			<div class="yfze">
+				<p class="yfze_a"><span class="z">应付总额：</span><span class="hq" th:text="'￥'+${totalAmount}" > ￥99999</span></p>
+
+
+			<button id="submitButton" class="tijiao">提交订单</button>
+		</div>
+		</div>
+
+		<form action="./submitOrder" method="post" id="orderForm">
+			<input name="consignee" id="consignee" type="hidden"/>
+			<input name="deliveryAddress" id="deliveryAddress" type="hidden"/>
+			<input name="paymentWay" id="paymentWay" type="hidden"/>
+			<input name="orderComment" id="orderComment" type="hidden"/>
+			<span  th:each="orderDetail,stat:${orderDetailList}" >
+				<input th:name="'orderDetailList['+${stat.index}+'].skuId'" type="hidden"    th:value="${orderDetail.skuId}" />
+				<input th:name="'orderDetailList['+${stat.index}+'].skuNum'" type="hidden"    th:value="${orderDetail.skuNum}" />
+				<input th:name="'orderDetailList['+${stat.index}+'].orderPrice'" type="hidden"    th:value="${orderDetail.orderPrice}" />
+				<input th:name="'orderDetailList['+${stat.index}+'].skuName'" type="hidden"    th:value="${orderDetail.skuName}" />
+			</span>
+			<input name="tradeCode" type="hidden"  th:value="${tradeCode}"  />
+		</form>
+		<script>
+            $(function() {
+
+                $("#submitButton").click(function () {
+                   $("#consignee").val($("input[type='radio']:checked").next().text()) ;
+                   $("#deliveryAddress").val( $("input[type='radio']:checked").next().next().text());
+                   $("#paymentWay").val("ONLINE");
+                   $("#orderComment").val($("#orderCommentPage").val());
+                   console.log($("#orderForm").html());
+                   $("#orderForm").submit();
+
+                });
+
+
+                $('.header-right li:nth-of-type(6)').hover(function(){
+                    $('.header-r-11').css('display','block')
+                },function(){
+                    $('.header-r-11').css('display','none')
+                })
+                $('.header-right li:nth-of-type(12)').hover(function(){
+                    $('.header-r-2').css('display','block')
+                },function(){
+                    $('.header-r-2').css('display','none')
+                })
+                $('.header-right li:nth-of-type(14)').hover(function(){
+                    $('.header-r-3').css('display','block')
+                },function(){
+                    $('.header-r-3').css('display','none')
+                })
+                $('.header-l-2').hover(function(){
+                    $('.header-l-d').css('display','block')
+                },function(){
+                    $('.header-l-d').css('display','none')
+                })
+                $('.header-r-4').hover(function(){
+                    $('.h-r-1').css('display','block')
+                },function(){
+                    $('.h-r-1').css('display','none')
+                })
+            })
+
+
+
+		</script>
+	</body>
+
+</html>

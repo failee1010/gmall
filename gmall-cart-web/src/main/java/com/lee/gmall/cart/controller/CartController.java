@@ -29,15 +29,6 @@ public class CartController {
     CartService cartService;
 
 
-    @LoginRequire(ifNeedSuccess = true)
-    @RequestMapping("toTrade")
-    public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
-        String userId = (String) request.getAttribute("userId");
-
-        return "toTrade";
-    }
-
-
     @LoginRequire(ifNeedSuccess = false)
     @RequestMapping("checkCart")
     public String checkCart(HttpServletRequest request, HttpServletResponse response, CartInfo cartInfo, ModelMap map) {

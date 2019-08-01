@@ -1,33 +1,46 @@
 package com.lee.gmall.bean;
 
+import com.lee.gmall.bean.enums.PaymentWay;
 
-public class OrderInfo {
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
-  private long id;
+public class OrderInfo implements Serializable {
+
+    @GeneratedValue(generator = "JDBC")//增加这个注解解决了通用Mapper的insert不返回主键的问题
+    @Id
+    private String id;
   private String consignee;
-  private double totalAmount;
+  private BigDecimal totalAmount;
   private String orderStatus;
-  private long userId;
-  private String paymentWay;
-  private java.sql.Timestamp expectDeliveryTime;
+  private String userId;
+  private PaymentWay paymentWay;
+  private Date expectDeliveryTime;
   private String deliveryAddress;
   private String orderComment;
   private String outTradeNo;
   private String tradeBody;
-  private java.sql.Timestamp createTime;
-  private java.sql.Timestamp expireTime;
+  private Date createTime;
+  private Date expireTime;
   private String wareStatus;
-  private long parentOrderId;
+  private String parentOrderId;
   private String processStatus;
   private String trackingNo;
   private String consigneeTel;
 
+  @Transient
+  List<OrderDetail> orderDetailList;
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -41,11 +54,11 @@ public class OrderInfo {
   }
 
 
-  public double getTotalAmount() {
+  public BigDecimal getTotalAmount() {
     return totalAmount;
   }
 
-  public void setTotalAmount(double totalAmount) {
+  public void setTotalAmount(BigDecimal totalAmount) {
     this.totalAmount = totalAmount;
   }
 
@@ -59,31 +72,23 @@ public class OrderInfo {
   }
 
 
-  public long getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 
 
-  public String getPaymentWay() {
+  public PaymentWay getPaymentWay() {
     return paymentWay;
   }
 
-  public void setPaymentWay(String paymentWay) {
+  public void setPaymentWay(PaymentWay paymentWay) {
     this.paymentWay = paymentWay;
   }
 
-
-  public java.sql.Timestamp getExpectDeliveryTime() {
-    return expectDeliveryTime;
-  }
-
-  public void setExpectDeliveryTime(java.sql.Timestamp expectDeliveryTime) {
-    this.expectDeliveryTime = expectDeliveryTime;
-  }
 
 
   public String getDeliveryAddress() {
@@ -122,24 +127,6 @@ public class OrderInfo {
   }
 
 
-  public java.sql.Timestamp getCreateTime() {
-    return createTime;
-  }
-
-  public void setCreateTime(java.sql.Timestamp createTime) {
-    this.createTime = createTime;
-  }
-
-
-  public java.sql.Timestamp getExpireTime() {
-    return expireTime;
-  }
-
-  public void setExpireTime(java.sql.Timestamp expireTime) {
-    this.expireTime = expireTime;
-  }
-
-
   public String getWareStatus() {
     return wareStatus;
   }
@@ -149,11 +136,11 @@ public class OrderInfo {
   }
 
 
-  public long getParentOrderId() {
+  public String getParentOrderId() {
     return parentOrderId;
   }
 
-  public void setParentOrderId(long parentOrderId) {
+  public void setParentOrderId(String parentOrderId) {
     this.parentOrderId = parentOrderId;
   }
 
@@ -181,7 +168,39 @@ public class OrderInfo {
   }
 
   public void setConsigneeTel(String consigneeTel) {
+
     this.consigneeTel = consigneeTel;
   }
 
+    public Date getExpectDeliveryTime() {
+        return expectDeliveryTime;
+    }
+
+    public void setExpectDeliveryTime(Date expectDeliveryTime) {
+        this.expectDeliveryTime = expectDeliveryTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+    return orderDetailList;
+  }
+
+  public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+    this.orderDetailList = orderDetailList;
+  }
 }

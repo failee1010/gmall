@@ -1,6 +1,8 @@
 package com.lee.gmall.bean;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 public class UserInfo implements Serializable {
 
@@ -13,6 +15,9 @@ public class UserInfo implements Serializable {
   private String email;
   private String headImg;
   private String userLevel;
+
+  @Transient
+  List<UserAddress> userAddressList;
 
 
   public String getId() {
@@ -92,7 +97,15 @@ public class UserInfo implements Serializable {
   }
 
   public void setUserLevel(String userLevel) {
+
     this.userLevel = userLevel;
   }
 
+  public List<UserAddress> getUserAddressList() {
+    return userAddressList;
+  }
+
+  public void setUserAddressList(List<UserAddress> userAddressList) {
+    this.userAddressList = userAddressList;
+  }
 }

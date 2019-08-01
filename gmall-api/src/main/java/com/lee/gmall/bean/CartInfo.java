@@ -13,7 +13,7 @@ public class CartInfo implements Serializable {
   private String imgUrl;
   private String isChecked;
   private BigDecimal skuPrice;
-  private double skuNum;
+  private Integer skuNum;
   private String skuName;
 
 
@@ -89,11 +89,11 @@ public class CartInfo implements Serializable {
   }
 
 
-  public double getSkuNum() {
+  public Integer getSkuNum() {
     return skuNum;
   }
 
-  public void setSkuNum(double skuNum) {
+  public void setSkuNum(Integer skuNum) {
     this.skuNum = skuNum;
   }
 

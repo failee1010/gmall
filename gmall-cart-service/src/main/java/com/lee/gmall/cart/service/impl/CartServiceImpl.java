@@ -114,4 +114,44 @@ public class CartServiceImpl implements CartService {
 
     }
 
+    @Override
+    public List<CartInfo> getCartCacheByChecked(String userId) {
+        Jedis jedis = redisUtil.getJedis();
+        List<CartInfo> cartInfos = new ArrayList<>();
+
+        List<String> hvals = jedis.hvals("carts:" + userId + ":info");
+        if (hvals != null && hvals.size() > 0) {
+            //取缓存中数据
+            for (String hval : hvals) {
+                CartInfo cartInfo = JSON.parseObject(hval, CartInfo.class);
+                if (cartInfo.getIsChecked().equals("1")) {
+                    cartInfos.add(cartInfo);
+                }
+            }
+        } else {
+            //取数据库中数据
+            CartInfo cartInfo = new CartInfo();
+            cartInfo.setUserId(userId);
+            cartInfo.setIsChecked("1");
+            cartInfos = cartInfoMapper.select(cartInfo);
+
+        }
+
+
+
+        return cartInfos;
+    }
+
+    @Override
+    public void deleteCartById(List<CartInfo> cartInfos) {
+
+        for (CartInfo cartInfo : cartInfos) {
+            cartInfoMapper.deleteByPrimaryKey(cartInfo);
+        }
+
+        //同步缓存
+        syncCache(cartInfos.get(0).getUserId());
+
+    }
+
 }

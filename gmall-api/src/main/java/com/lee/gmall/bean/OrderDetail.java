@@ -1,43 +1,49 @@
 package com.lee.gmall.bean;
 
+import javax.persistence.Transient;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
-public class OrderDetail {
+public class OrderDetail implements Serializable {
 
-  private long id;
-  private long orderId;
-  private long skuId;
+  private String id;
+  private String orderId;
+  private String skuId;
   private String skuName;
   private String imgFileName;
-  private double orderPrice;
-  private String skuNums;
-  private long logisticsId;
+  private BigDecimal orderPrice;
+  private Integer skuNums;
+  private String logisticsId;
   private String imgUrl;
-  private String skuNum;
+  private Integer skuNum;
+
+  @Transient
+  private String hasStock;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
 
-  public long getOrderId() {
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(long orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 
 
-  public long getSkuId() {
+  public String getSkuId() {
     return skuId;
   }
 
-  public void setSkuId(long skuId) {
+  public void setSkuId(String skuId) {
     this.skuId = skuId;
   }
 
@@ -60,29 +66,29 @@ public class OrderDetail {
   }
 
 
-  public double getOrderPrice() {
+  public BigDecimal getOrderPrice() {
     return orderPrice;
   }
 
-  public void setOrderPrice(double orderPrice) {
+  public void setOrderPrice(BigDecimal orderPrice) {
     this.orderPrice = orderPrice;
   }
 
 
-  public String getSkuNums() {
+  public Integer getSkuNums() {
     return skuNums;
   }
 
-  public void setSkuNums(String skuNums) {
+  public void setSkuNums(Integer skuNums) {
     this.skuNums = skuNums;
   }
 
 
-  public long getLogisticsId() {
+  public String getLogisticsId() {
     return logisticsId;
   }
 
-  public void setLogisticsId(long logisticsId) {
+  public void setLogisticsId(String logisticsId) {
     this.logisticsId = logisticsId;
   }
 
@@ -96,12 +102,19 @@ public class OrderDetail {
   }
 
 
-  public String getSkuNum() {
+  public Integer getSkuNum() {
     return skuNum;
   }
 
-  public void setSkuNum(String skuNum) {
+  public void setSkuNum(Integer skuNum) {
     this.skuNum = skuNum;
   }
 
+  public String getHasStock() {
+    return hasStock;
+  }
+
+  public void setHasStock(String hasStock) {
+    this.hasStock = hasStock;
+  }
 }
