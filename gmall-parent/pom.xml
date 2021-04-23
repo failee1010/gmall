@@ -31,7 +31,7 @@
         <jedis.version>2.9.0</jedis.version>
         <jest.version>5.3.3</jest.version>
         <jna.version>5.2.0</jna.version>
-        <beanUtils.version>1.8.3</beanUtils.version>
+        <beanUtils.version>1.9.4</beanUtils.version>
     </properties>
 
     <parent>
